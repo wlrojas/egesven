@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: db-egesven
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: egesven
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      #- ./docker/init.sql:/docker-entrypoint-initdb.d/script.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root --password=root" ]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    container_name: egesven_app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-egesven:3306/egesven
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    restart: always
+
+volumes:
+  mysql-data:
