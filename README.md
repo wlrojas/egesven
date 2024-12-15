@@ -2,12 +2,12 @@
 Venta de productos
 
 Para ejecutar
-1- Iniciar Docker o Colima
-2- Ir a la raíz del proyecto, donde están los archivos Docker
-Ejecutar los siguientes comandos
-./mvnw clean package
-docker-compose down -v
-docker-compose up --build
-
+1- Iniciar Docker o Colima <br>
+2- Ir a la raíz del proyecto, donde están los archivos Docker<br>
+Ejecutar los siguientes comandos<br>
+./mvnw clean package<br>
+docker-compose down -v<br>
+docker-compose up --build<br>
+<br>
 A disfrutar!
 
